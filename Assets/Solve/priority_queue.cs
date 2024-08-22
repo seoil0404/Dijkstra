@@ -5,20 +5,20 @@ using System.Collections.Generic;
 public class priority_queue<T>
 {
     vector<Tuple<T,int>> data;
+    public priority_queue()
+    {
+        data = new vector<Tuple<T, int>>();
+    }
     private int getPriority(int priority)
     {
         for (int i = 0; i < data.size(); i++)
         {
-            if(priority < data[i].Item2)
+            if (priority < data[i].Item2)
             {
                 return i;
             }
         }
         return data.size();
-    }
-    public priority_queue()
-    {
-        data = new vector<Tuple<T, int>>();
     }
     public void push(T item, int _priority)
     {

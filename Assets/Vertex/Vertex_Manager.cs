@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Vertex_Manager : MonoBehaviour
 {
     public GameObject numberText;
-    public void Instance(int number, Vector3 position)
+    public void SetInstanceState(int number, Vector3 position)
     {
         gameObject.transform.position = position;
         numberText.GetComponent<TextMeshPro>().text = number.ToString();

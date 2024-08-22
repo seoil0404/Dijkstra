@@ -1,23 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class solve : MonoBehaviour
 {
-    public Vertex_Controller vertex_controller;
     public Graph_Controller graph_controller;
     public bool isContinue;
     private void Awake()
     {
-        isContinue = true;
+        isContinue = false;
         Data_Manager data_manager = GameObject.Find("Data_Manager").GetComponent<Data_Manager>();
         graph_controller.GenerateGraph(data_manager.vertex_data);
         StartCoroutine(Solve(data_manager.vertex_data, data_manager.start_vertex));
     }
     //-------------------------------------------------------------------------------------------
 
-    private int[] dp;
+    public int[] dp;
 
     public void Continue()
     {
@@ -26,6 +27,7 @@ public class solve : MonoBehaviour
 
     IEnumerator Solve(priority_queue<Vector2>[] data, int start_vertex)
     {
+
         dp = new int[data.Length];
 
         for (int i = 0; i < data.Length; i++)
@@ -35,8 +37,11 @@ public class solve : MonoBehaviour
 
         Queue<int> node = new Queue<int>();
         node.Enqueue(start_vertex);
+
         graph_controller.GenerateVertexCost(0, 0);
+        
         dp[start_vertex] = 0;
+        
         while (node.Count != 0)
         {
             int front = node.Dequeue();
@@ -58,17 +63,24 @@ public class solve : MonoBehaviour
                     isContinue = false;
 
                     node.Enqueue(force);
+                    
                     dp[force] = temp;
+
                     graph_controller.GenerateVertexCost(force, dp[force]);
                     graph_controller.GenerateDynamicEdge(front, force);
                 }
             }
         }
-        for (int i = 0; i < dp.Length; i++)
-        {
-            if (dp[i] == -1) Debug.Log("INF");
-            else Debug.Log(dp[i]);
-        }
+        Debug.Log("End");
+        End();
+    }
+
+    public GameObject r;
+
+    private void End()
+    {
+        DontDestroyOnLoad(this);
+        SceneManager.LoadScene("ResultScene");
     }
 
     public int Wait()

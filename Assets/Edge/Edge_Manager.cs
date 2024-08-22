@@ -5,7 +5,7 @@ using UnityEngine;
 public class Edge_Manager : MonoBehaviour
 {
     public Vector3 endPosition;
-    public float speed;
+    public float speed; 
     private LineRenderer lineRenderer;
     private bool IsEnable = false;
 
@@ -20,6 +20,9 @@ public class Edge_Manager : MonoBehaviour
 
     private void Update()
     {
-        if (IsEnable && lineRenderer.GetPosition(1) != endPosition) lineRenderer.SetPosition(1, Vector3.Lerp(lineRenderer.GetPosition(1), endPosition, speed));
+        if (IsEnable && lineRenderer.GetPosition(1) != endPosition)
+        {
+            lineRenderer.SetPosition(1, Vector3.Lerp(lineRenderer.GetPosition(1), endPosition, speed));
+        }
     }
 }
