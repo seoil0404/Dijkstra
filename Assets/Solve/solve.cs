@@ -38,6 +38,7 @@ public class solve : MonoBehaviour
         Queue<int> node = new Queue<int>();
         node.Enqueue(start_vertex);
 
+        graph_controller.ShowVertexInformation(data[start_vertex], start_vertex);
         graph_controller.GenerateVertexCost(0, 0);
         
         dp[start_vertex] = 0;
@@ -45,6 +46,8 @@ public class solve : MonoBehaviour
         while (node.Count != 0)
         {
             int front = node.Dequeue();
+            graph_controller.ShowVertexInformation(data[front], front);
+
             for (int i = 0; i < data[front].size(); i++)
             {
                 Vector2 v = data[front][i];
@@ -71,7 +74,8 @@ public class solve : MonoBehaviour
                 }
             }
         }
-        Debug.Log("End");
+
+        yield return new WaitUntil(() => isContinue);
         End();
     }
 

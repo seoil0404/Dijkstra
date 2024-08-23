@@ -14,10 +14,21 @@ public class Graph_Controller : MonoBehaviour
 
     public GameObject costPrefab;
     public TextMeshPro[] costText;
+    public TextMeshProUGUI VertexINF;
 
     private void Start()
     {
         
+    }
+
+    public void ShowVertexInformation(priority_queue<Vector2> data, int VertexNumber)
+    {
+        VertexINF.text = null;
+        VertexINF.text += "Vertex " + (VertexNumber+1) + "\n";
+        for(int i = 0; i < data.size(); i++)
+        {
+            VertexINF.text += (data[i].x+1) + " Cost:" + data[i].y + "\n";
+        }
     }
 
     public void GenerateVertexCost(int vertexNumber, int cost)
